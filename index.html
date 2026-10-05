@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
+<meta content="#080706" name="theme-color"/><title>Luce — 21</title><style>@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=DM+Sans:wght@400;500;600;700&family=Italianno&display=swap');
+:root{--black:#070605;--red:#951522;--red2:#bd2635;--cream:#eee3d9}
+*{box-sizing:border-box}html,body{margin:0;background:#000;color:#fff}body{font-family:"DM Sans",Arial,sans-serif}.grain{position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.invitation{display:none}.invitation.show{display:block}.gate{min-height:100svh;background:#050505;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.gate-leopard{position:absolute;inset:0 0 auto 0;height:46%;background:url("assets/image1.jpg") center/cover no-repeat;opacity:.9}.gate:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#05050500 0%,#05050508 25%,#050505 67%,#050505 100%);z-index:1}.gate:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#050505 0%,#05050500 48%,#050505 100%);z-index:1}.gate-inner{position:relative;z-index:3;width:min(92%,540px);height:100svh;min-height:700px;padding:58px 22px 30px;display:flex;flex-direction:column;align-items:center;text-align:center}.micro{font-size:7px;letter-spacing:4px;color:#e2d7d0;margin:0 0 24px}.gate-script{font-family:Italianno,cursive;font-size:42px;color:#f4e7df;line-height:.9;transform:rotate(-4deg)}.gate h1{font:600 clamp(72px,19vw,118px)/.72 "Bodoni Moda",serif;color:#bd2635;margin:6px 0 0;text-shadow:3px 4px #25050a;letter-spacing:-4px}.gate .turning{font-family:Italianno,cursive;font-size:31px;color:#f1e3db;margin-top:10px}.gate-age{font:600 clamp(135px,40vw,225px)/.72 "Bodoni Moda",serif;color:#eee3d9;letter-spacing:-16px;text-shadow:0 12px 35px #000;margin:5px 0 0}.gate-date{font-size:8px;letter-spacing:4px;margin:10px 0 0;color:#eee2da}.gate form{position:absolute;z-index:5;bottom:30px;left:50%;transform:translateX(-50%);width:min(88%,390px);padding:18px 20px 17px;background:#090707e8;border:1px solid #bca69d;border-radius:8px;box-shadow:0 18px 55px #000}.gate form label{display:block;font:600 11px "Bodoni Moda";letter-spacing:2px;color:#f1e4dc;margin-bottom:11px}.name-row{display:flex;gap:6px;border-bottom:1px solid #8d7770;padding-bottom:5px}.name-row input{flex:1;min-width:0;height:40px;background:transparent;border:0;color:#fff;padding:0 2px;font:400 15px "Bodoni Moda";outline:none;text-align:center}.name-row input::placeholder{color:#887b76}.name-row button{height:38px;border:0;border-radius:3px;background:#9b1725;color:#fff;font-size:8px;font-weight:700;letter-spacing:2px;padding:0 15px}.gate-error{min-height:12px;font-size:8px;color:#eaaeb4;margin:7px 0 0}.gate-inner:after{content:"LUCE'S 21ST · PRIVATE INVITATION";position:absolute;bottom:8px;left:0;right:0;font-size:5px;letter-spacing:3px;color:#665b57}
+.invitation{display:none;max-width:760px;margin:auto;background:#070605}.invitation.show{display:block}.cover-page{height:100svh;min-height:760px;position:relative;overflow:hidden;background:#050505}.leopard-top{position:absolute;z-index:1;top:5%;left:-8%;width:116%;height:39%;background:url("assets/image1.jpg") center/cover no-repeat;opacity:.78;filter:saturate(.9);clip-path:polygon(0 8%,100% 0,100% 91%,0 100%)}
+.leopard-top:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#05050500 0%,#05050510 42%,#050505 100%)}
+.cover-page:before{content:"";position:absolute;z-index:2;left:7%;right:7%;top:17%;height:1px;background:#9c1c29;opacity:.8;box-shadow:0 16px 0 #9c1c2940,0 32px 0 #9c1c2920}
+.cover-page:after{content:"";position:absolute;z-index:2;width:78px;height:118px;right:-17px;top:28%;background:url("assets/image1.jpg") center/cover;opacity:.9;transform:rotate(7deg);border-left:2px solid #a71d2a;border-top:2px solid #a71d2a;box-shadow:-12px 14px 0 #8f111d}
+.cover-shade{position:absolute;z-index:3;inset:0;background:linear-gradient(180deg,#00000000 7%,#05050505 25%,#050505d9 48%,#050505 68%,#050505 100%)}.cover-header,.cover-bottom{position:absolute;left:22px;right:22px;z-index:5;display:flex;justify-content:space-between;font-size:7px;letter-spacing:3px;color:#d1c5bd}.cover-header{top:20px}.cover-bottom{bottom:18px}.cover-title{position:absolute;z-index:5;top:9%;left:0;right:0;text-align:center}.cover-title .script{font-size:38px;transform:rotate(-4deg);text-shadow:0 2px 10px #000}.cover-title h2{font:700 clamp(75px,20vw,145px)/.7 "Bodoni Moda",serif;color:var(--red2);margin:0;text-shadow:4px 5px #25050a;letter-spacing:-5px}.cover-title .turning{margin-top:7px}.number{position:relative;font:700 clamp(180px,48vw,330px)/.72 "Bodoni Moda",serif;color:var(--cream);letter-spacing:-18px;text-shadow:0 10px 35px #000;margin-top:5px}.number:after{content:"";position:absolute;z-index:-1;left:50%;top:30%;width:180px;height:62px;transform:translateX(-50%) rotate(-3deg);background:url("assets/image1.jpg") center/cover;opacity:.8;mix-blend-mode:screen;clip-path:polygon(7% 17%,95% 0,100% 79%,0 100%)}.photo{position:absolute;z-index:4;overflow:hidden;border:2px solid #c5aaa0;box-shadow:0 20px 60px #000}.photo img{width:100%;height:100%;object-fit:cover;display:block}.photo-left{width:118px;height:190px;left:5%;bottom:18%;transform:rotate(-4deg)}.photo-right{width:145px;height:210px;right:5%;bottom:15%;transform:rotate(4deg)}.red-pill:before{content:"✦";position:absolute;left:-32px;top:50%;transform:translateY(-50%);color:#b92332;font-size:13px}.red-pill:after{content:"✦";position:absolute;right:-32px;top:50%;transform:translateY(-50%);color:#b92332;font-size:13px}.red-pill{position:absolute;z-index:6;left:50%;bottom:11%;transform:translateX(-50%);width:min(74%,350px);padding:12px 15px;border:1px solid #eadbd2;border-radius:18px;background:#8e111de8;text-align:center}.red-pill strong,.red-pill span{display:block}.red-pill strong{font:600 14px "Bodoni Moda";letter-spacing:1px}.red-pill span{font-size:7px;letter-spacing:3px;margin-top:3px}
+.details-page{min-height:100svh;position:relative;padding:34px 20px 50px;background:linear-gradient(#070606,#0d0809)}.details-leopard{position:absolute;top:0;left:0;width:100%;height:210px;background:url("assets/image1.jpg") center/cover no-repeat;opacity:.16;clip-path:polygon(0 0,100% 8%,100% 65%,0 78%)}.details-heading{position:relative;text-align:center;padding-top:25px}.details-heading .script{font-size:35px}.details-heading h2{font:700 clamp(55px,14vw,95px)/.8 "Bodoni Moda",serif;margin:0;color:#e9ddd5;text-shadow:3px 4px #000}.welcome{position:relative;max-width:620px;margin:28px auto 18px;border-left:2px solid var(--red2);padding:9px 13px;background:#0b0808}.welcome span,.welcome strong{display:block}.welcome span{font-size:6px;letter-spacing:3px;color:#a99d96}.welcome strong{font:600 22px "Bodoni Moda";color:#d8c9c1;margin-top:4px}.info-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:9px;max-width:620px;margin:auto}.info-grid button{min-height:120px;text-align:left;background:#0b0909;border:1px solid #432329;color:#fff;padding:16px;transition:.2s}.info-grid button:hover{border-color:#b12131;transform:translateY(-2px)}.info-grid small,.info-grid b,.info-grid span{display:block}.info-grid small{color:#b32030;font-size:8px;letter-spacing:2px}.info-grid b{font-size:10px;letter-spacing:1.3px;margin-top:28px}.info-grid span{font-size:8px;line-height:1.5;color:#b8ada6;margin-top:6px}.panel{position:relative;max-width:620px;margin:9px auto 0;padding:24px 20px;background:#14090b;border:1px solid #652b32;display:none}.panel.open{display:block}.close{position:absolute;right:9px;top:7px;border:0;background:none;color:#aaa;font-size:23px}.panel small,.rsvp-card small{font-size:7px;letter-spacing:3px;color:#bca39a}.panel h3,.rsvp-card h3{font:600 32px/1 "Bodoni Moda";margin:13px 0}.panel p{font-size:11px;line-height:1.8;color:#c4b8b1}.dress{display:flex;justify-content:space-between;border-top:1px solid #382025;padding:13px 0;font-size:9px;letter-spacing:2px}.dress span{color:#d4c7c0}.rsvp-card{max-width:620px;margin:22px auto 0;padding:22px;background:#8e111de8;border:1px solid #ead8d0}.rsvp-card h3{margin-bottom:15px}.rsvp-actions{display:flex;gap:8px}.rsvp-actions button{flex:1;min-height:44px;border:0;background:#f0e5dc;color:#230609;font-size:8px;font-weight:700;letter-spacing:1px}.rsvp-actions button+button{background:#280c10;color:#fff}.rsvp-card p{font-size:9px;margin:9px 0 0;color:#f4dadd}.mini-gallery{max-width:620px;margin:28px auto;display:grid;grid-template-columns:1fr 1fr;gap:9px}.mini-gallery img{width:100%;height:230px;object-fit:cover;display:block;filter:grayscale(.35);border:1px solid #3e292c}
+/* V7 — luxury editorial interaction */
+.info-grid{display:none}
+.info-list{position:relative;max-width:620px;margin:30px auto 0;border-top:1px solid #3a2528}
+.detail-row{width:100%;min-height:96px;display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:14px;padding:15px 8px 15px 4px;background:transparent;border:0;border-bottom:1px solid #3a2528;color:#fff;text-align:left;cursor:pointer;position:relative;transition:background .22s ease,padding .22s ease}
+.detail-row:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#a31a29;transform:scaleY(0);transform-origin:center;transition:transform .22s ease}
+.detail-row:hover,.detail-row.active{background:linear-gradient(90deg,#180a0d,#0c0809);padding-left:13px}
+.detail-row:hover:before,.detail-row.active:before{transform:scaleY(1)}
+.row-no{align-self:start;margin-top:3px;font-size:7px;letter-spacing:3px;color:#a31a29}
+.row-main{display:flex;flex-direction:column;gap:7px;min-width:0}
+.row-main b{font-size:11px;letter-spacing:1.8px;font-weight:600;color:#f0e5df}
+.row-main em{font-style:normal;font-size:8px;color:#8f817c;letter-spacing:.4px}
+.row-action{font-size:6px;letter-spacing:2px;color:#6f625e;white-space:nowrap}
+.row-action strong{font-size:13px;font-weight:400;color:#c6b6ae;margin-left:7px;transition:transform .22s ease;display:inline-block}
+.detail-row.active .row-action{color:#d8c9c2}
+.detail-row.active .row-action strong{transform:rotate(90deg);color:#c12635}
+.panel{animation:panelIn .25s ease both;margin-top:0;border-left:2px solid #a31a29;border-right:0;border-top:0;border-bottom:1px solid #3a2528;background:#0d0809;padding:22px 22px 24px}
+.panel .close{right:4px;top:3px;font-size:20px;color:#8c7b75}
+.panel h3{font-size:27px}
+.panel p{max-width:520px}
+.details-page footer{text-align:center;color:#6f625d;font-size:6px;letter-spacing:4px;margin-top:30px}@media(min-width:700px){.cover-page{min-height:920px}.photo-left{width:170px;height:270px}.photo-right{width:190px;height:290px}}
+
+/* V9 — visual detail cards inspired by editorial invitation layouts */
+.detail-stack{max-width:650px;margin:30px auto 0;display:flex;flex-direction:column;gap:14px}
+.detail-card-v9{position:relative;width:100%;min-height:178px;display:grid;grid-template-columns:1fr 38%;overflow:hidden;padding:0;background:linear-gradient(135deg,#72000f 0%,#8b0015 52%,#a30b20 100%);border:1px solid #eadfd8;border-radius:2px;color:#f4e8e1;text-align:left;cursor:pointer;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.detail-card-v9:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#57000a33 0%,#00000008 55%,transparent 100%);z-index:1;pointer-events:none}
+.detail-card-v9:hover,.detail-card-v9.active{transform:translateY(-2px);border-color:#f2e9e2;box-shadow:0 15px 35px #0007}
+.detail-card-copy{position:relative;z-index:3;padding:20px 18px 17px;display:flex;flex-direction:column;align-items:flex-start}
+.detail-number{font-size:7px;letter-spacing:3px;color:#cf2638;margin-bottom:12px}
+.detail-kicker{font-size:7px;letter-spacing:3px;color:#9e8d87}
+.detail-card-v9 h3{font:600 27px/.9 "Bodoni Moda",serif;letter-spacing:.2px;margin:10px 0 12px;color:#fff8f3}
+.detail-card-v9 h3 em{font-style:normal;color:#fff0e8}
+.detail-open{margin-top:auto;font-size:6px;letter-spacing:2px;color:#f2dfd7}
+.detail-open b{font-size:13px;font-weight:400;color:#fff8f3;margin-left:6px;transition:transform .25s ease;display:inline-block}
+.detail-card-v9.active .detail-open b{transform:rotate(90deg);color:#fff}
+.detail-art{position:relative;min-height:178px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.date-art{background:linear-gradient(135deg,#70000f,#8b0015 55%,#a30b20);isolation:isolate}
+.date-art:before{content:"";position:absolute;inset:-20px;background:url("assets/image1.jpg") center/cover;opacity:.2;mix-blend-mode:screen}
+.date-art span{position:relative;z-index:2;font:600 112px/.7 "Bodoni Moda",serif;color:#f0e2da;letter-spacing:-9px}
+.date-art i{position:absolute;z-index:3;right:18px;bottom:18px;font-style:normal;font-size:7px;letter-spacing:4px;color:#fff}
+.location-art img{width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.04)}
+.location-art:after{content:"VILLA H";position:absolute;left:13px;bottom:12px;font-size:7px;letter-spacing:3px;color:#fff;text-shadow:0 2px 8px #000}
+.dress-art{background:#080606;flex-direction:column;gap:8px;align-items:flex-end;padding-right:20px}
+.leopard-swatch{position:absolute;inset:0;background:url("assets/image1.jpg") center/cover;opacity:.78;clip-path:polygon(28% 0,100% 0,100% 100%,0 100%,0 48%);mix-blend-mode:normal}
+.dress-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#090606 0%,#09060600 55%);z-index:1}
+.dress-art span,.dress-art b{position:relative;z-index:3;font-size:7px;letter-spacing:3px;color:#f2e7df}
+.bottle-art{background:linear-gradient(135deg,#70000f,#8b0015 55%,#a30b20);gap:8px}
+.bottle-art span{font:500 35px "Bodoni Moda";color:#f0e2da}
+.bottle-art b{font:400 23px "Bodoni Moda";color:#d33a48}
+.panel-v9{max-width:650px;margin:0 auto;background:linear-gradient(135deg,#65000d,#8b0015);border:1px solid #eadfd8;border-top:0;border-radius:0 0 2px 2px;padding:24px 24px 27px;animation:panelIn .25s ease both}
+.panel-v9 .panel-villa{display:block;width:100%;max-height:300px;object-fit:cover;margin:14px 0 16px}
+@media(max-width:600px){
+ .detail-card-v9{grid-template-columns:1fr 35%;min-height:155px}
+ .detail-art{min-height:155px}
+ .detail-card-v9 h3{font-size:22px}
+ .date-art span{font-size:88px}
+}
+ .enter-fallback{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;cursor:pointer;color:inherit}
+
+.detail-card-v9{touch-action:manipulation;-webkit-tap-highlight-color:rgba(255,255,255,.15)} .panel.open{display:block!important} .rsvp-message.show{opacity:1;transform:none} .rsvp-actions button.selected{outline:1px solid #fff;box-shadow:0 0 0 2px #8b0015 inset}</style>
+<style>
+/* Stable touch interactions: no hash navigation, no browser form behavior. */
+.detail-card-v9{appearance:none;-webkit-appearance:none;width:100%;font:inherit;color:inherit;cursor:pointer;text-align:left;border:0;padding:0;display:grid;text-decoration:none!important;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.detail-card-v9:active{transform:scale(.995)}
+.detail-card-v9.active{outline:1px solid rgba(255,255,255,.55);outline-offset:2px}
+.panel{position:relative;z-index:20}
+.panel[hidden]{display:none!important}
+.close{appearance:none;-webkit-appearance:none;display:grid;place-items:center;width:34px;height:34px;padding:0;line-height:1;border:1px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(0,0,0,.25);color:#fff;font-size:22px;cursor:pointer;touch-action:manipulation;z-index:5}
+.rsvp-actions button{appearance:none;-webkit-appearance:none;cursor:pointer;touch-action:manipulation}
+.rsvp-fallback{display:none!important}
+</style><style>
+/* LUCE PREMIUM FINISH */
+.gate{background:#050505 url("assets/image2.jpg") center/cover fixed;}
+.gate:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.62) 58%,rgba(0,0,0,.88));pointer-events:none;}
+.gate-leopard{height:38%;opacity:.38;mix-blend-mode:screen;filter:saturate(.9) contrast(1.1);}
+.gate-inner{position:relative;z-index:4;width:min(920px,100%);min-height:100svh;padding:56px 12px 34px;display:grid;place-items:center;overflow:hidden;}
+.gate-copy{position:relative;z-index:7;text-align:center;width:min(500px,76vw);padding:30px 22px 26px;background:rgba(8,5,5,.48);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:34px;box-shadow:0 28px 80px rgba(0,0,0,.48);}
+.gate-copy h1{margin:2px 0 0;font:700 clamp(68px,19vw,132px)/.78 "Bodoni Moda",serif;letter-spacing:-5px;color:#b51d2e;text-shadow:0 6px 30px #000;}
+.gate-copy .gate-script{font-size:34px;color:#f3e5db;}
+.gate-copy .gate-age{font:700 clamp(120px,34vw,230px)/.75 "Bodoni Moda",serif;color:#f2e7de;letter-spacing:-13px;text-shadow:0 12px 40px #000;}
+.name-row{display:flex;gap:9px;align-items:stretch;margin-top:10px;}
+.name-row input{flex:1;min-width:0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.3);border-radius:999px;color:#fff;padding:15px 18px;font:500 14px "DM Sans";outline:none;}
+.name-row input:focus{border-color:#c32b3c;box-shadow:0 0 0 3px rgba(139,0,21,.22);}
+.enter-fallback{border:1px solid rgba(255,255,255,.35);border-radius:999px;background:linear-gradient(135deg,#70000f,#b51d2e);color:#fff;min-width:125px;padding:0 18px;font:700 11px "DM Sans";letter-spacing:2px;cursor:pointer;box-shadow:0 12px 30px rgba(139,0,21,.35);transition:transform .2s,box-shadow .2s;}
+.enter-fallback span{font-size:16px;margin-left:6px;}
+.enter-fallback:active{transform:scale(.97);}
+.gate-photo{position:absolute;z-index:5;width:154px;height:224px;border:5px solid #f0e4db;border-radius:24px;overflow:hidden;box-shadow:0 24px 55px rgba(0,0,0,.65);transform:rotate(-8deg);}
+.gate-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.gate-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35));}
+.gate-photo.p1{left:-1%;top:14%;transform:rotate(-9deg) scale(1.04);}
+.gate-photo.p2{right:-1%;top:23%;transform:rotate(9deg) scale(1.05);}
+.gate-photo.p3{left:2%;bottom:3%;width:132px;height:192px;transform:rotate(-6deg) scale(1.03);filter:none;}
+
+.gate-orbit{position:absolute;border:1px solid rgba(255,255,255,.12);border-radius:50%;pointer-events:none;}
+.gate-orbit-a{width:520px;height:520px;right:-180px;top:-160px;}
+.gate-orbit-b{width:340px;height:340px;left:-150px;bottom:-120px;border-color:rgba(139,0,21,.4);}
+.details-page{background:#050505 url("assets/image2.jpg") center/cover fixed!important;position:relative;}
+.details-page:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.72));pointer-events:none;}
+.details-page>*{position:relative;z-index:2;}
+.detail-card-v9{border-radius:30px!important;border:1px solid rgba(245,232,224,.7)!important;box-shadow:0 18px 40px rgba(0,0,0,.4);overflow:hidden;min-height:178px;}
+.detail-card-v9:first-of-type{border-top-left-radius:46px!important;border-bottom-right-radius:46px!important;}
+.detail-card-v9:nth-of-type(2){border-top-right-radius:46px!important;border-bottom-left-radius:46px!important;}
+.detail-card-v9:nth-of-type(3){border-top-left-radius:46px!important;border-bottom-right-radius:46px!important;}
+.detail-card-v9:nth-of-type(4){border-top-right-radius:46px!important;border-bottom-left-radius:46px!important;}
+.detail-card-v9:hover,.detail-card-v9.active{transform:translateY(-3px) scale(1.008);box-shadow:0 24px 55px rgba(0,0,0,.5);}
+.panel-v9{position:fixed!important;inset:50% auto auto 50%;transform:translate(-50%,-46%) scale(.96);width:min(680px,calc(100vw - 28px));max-height:min(82svh,760px);overflow:auto;margin:0!important;padding:30px!important;border:1px solid rgba(245,232,224,.65)!important;border-radius:34px!important;background:linear-gradient(145deg,rgba(82,0,12,.98),rgba(139,0,21,.97))!important;box-shadow:0 35px 100px rgba(0,0,0,.72);opacity:0;visibility:hidden;z-index:1000!important;transition:opacity .22s ease,transform .22s ease,visibility .22s ease;}
+.panel-v9.open{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1);}
+body.modal-open:after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.74);backdrop-filter:blur(5px);z-index:999;}
+.panel-v9 .close{position:absolute;right:16px;top:16px;}
+.panel-kicker{font-size:9px;letter-spacing:4px;opacity:.7;margin-bottom:12px;}
+.panel-v9 h2{font:600 clamp(38px,10vw,66px)/.9 "Bodoni Moda",serif;margin:0 0 16px;color:#fff4ee;letter-spacing:-2px;}
+.panel-v9 h2 em{font-style:normal;color:#f0d8cd;}
+.panel-rule{height:1px;background:rgba(255,255,255,.28);margin:18px 0;}
+.panel-lead{font-size:15px;line-height:1.65;color:#f2e7e1;margin:0;}
+.panel-stamp{font:500 clamp(64px,17vw,110px)/.8 "Bodoni Moda",serif;color:#f4dfd6;margin:22px 0 8px;letter-spacing:-5px;}
+.panel-villa{width:100%;height:min(48vw,300px);object-fit:cover;border-radius:24px;margin:12px 0 18px;}
+.dress-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;}
+.dress-grid>div{padding:18px;border:1px solid rgba(255,255,255,.25);border-radius:22px;background:rgba(0,0,0,.16);}
+.dress-grid span{display:block;font-size:8px;letter-spacing:3px;opacity:.65;margin-bottom:8px;}
+.dress-grid b{font:600 26px "Bodoni Moda",serif;}
+.confetti-layer{position:fixed;inset:0;z-index:3000;pointer-events:none;overflow:hidden;}
+.confetti-layer i{position:absolute;top:-20px;width:7px;height:15px;border-radius:2px;animation:confettiFall 3s cubic-bezier(.2,.7,.3,1) forwards;transform:rotate(0);}
+@keyframes confettiFall{to{top:110%;transform:translateX(var(--x)) rotate(var(--r));opacity:.05;}}
+.farewell{position:fixed;inset:0;z-index:3000;display:grid;place-items:center;background:rgba(0,0,0,.8);backdrop-filter:blur(7px);padding:24px;}
+.farewell>div{width:min(480px,100%);text-align:center;padding:40px 28px;border:1px solid rgba(255,255,255,.25);border-radius:34px;background:linear-gradient(145deg,#0a0808,#5d000b);box-shadow:0 30px 90px #000;}
+.farewell span{font-size:9px;letter-spacing:4px;opacity:.65;}
+.farewell strong{display:block;font:600 38px/1 "Bodoni Moda",serif;margin:18px 0;color:#f1e2d8;}
+.farewell small{display:block;color:#d7c8c0;margin-bottom:24px;}
+.farewell button{border:1px solid rgba(255,255,255,.3);border-radius:999px;background:#8b0015;color:white;padding:12px 22px;letter-spacing:2px;font-size:10px;}
+@media(max-width:600px){.gate-copy{width:74vw;min-width:280px;padding:24px 18px;}.gate-photo{width:136px;height:198px;border-width:3px;border-radius:20px;}.gate-photo.p1{left:-8%;top:14%;}.gate-photo.p2{right:-8%;top:24%;}.gate-photo.p3{left:-2%;bottom:2%;width:118px;height:172px;}.detail-card-v9{border-radius:26px!important;min-height:160px;}.detail-card-v9:first-of-type,.detail-card-v9:nth-of-type(2),.detail-card-v9:nth-of-type(3),.detail-card-v9:nth-of-type(4){border-radius:28px!important;}.name-row{flex-direction:column;}.enter-fallback{min-height:48px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:inherit;}.panel-v9{width:calc(100vw - 22px);padding:24px!important;border-radius:28px!important;max-height:84svh;}.panel-villa{height:220px;}}
+</style>
+<style>
+/* FINAL iPHONE TOUCH FALLBACK + PHOTO FINISH */
+.gate-toggle{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.gate-toggle:checked ~ .gate{display:none!important}
+.gate-toggle:checked ~ .invitation{display:block!important}
+.enter-fallback{display:flex;align-items:center;justify-content:center;min-height:58px;width:100%;text-decoration:none!important;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.gate-photo{border:0!important;box-shadow:0 24px 70px rgba(0,0,0,.72)!important;border-radius:22px!important}
+.gate-photo.p1{width:176px!important;height:254px!important;left:-5%!important;top:17%!important;transform:rotate(-7deg)!important}
+.gate-photo.p2{width:184px!important;height:266px!important;right:-6%!important;top:22%!important;transform:rotate(7deg)!important}
+.gate-photo.p3{width:150px!important;height:218px!important;left:1%!important;bottom:0!important;transform:rotate(-5deg)!important}
+.gate-photo:after{background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.28))!important}
+/* Details work even in iPhone Files/Quick Look when JS is unavailable. */
+.detail-toggle{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.detail-toggle:checked + .detail-card-v9{transform:translateY(-2px);border-color:#f2e9e2;box-shadow:0 15px 35px #0007}
+.detail-toggle:checked + .detail-card-v9 + .panel{display:block!important}
+.detail-card-v9{border-radius:22px!important}
+.close{display:grid!important}
+/* RSVP fallback */
+.rsvp-toggle{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.rsvp-actions label{flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;border:0;background:#f0e5dc;color:#230609;font-size:8px;font-weight:700;letter-spacing:1px;cursor:pointer;touch-action:manipulation}
+.rsvp-actions label+label{background:#280c10;color:#fff}
+.rsvp-card #rsvpMessage{display:none}
+.rsvp-toggle:checked ~ .rsvp-card #rsvpMessage{display:block}
+.rsvp-toggle:checked ~ .rsvp-card #rsvpMessage .fallback-msg{display:none}
+#rsvpYes:checked ~ .rsvp-card #rsvpMessage .fallback-yes{display:block}
+#rsvpNo:checked ~ .rsvp-card #rsvpMessage .fallback-no{display:block}
+</style>
+</head>
+<body><div class="grain"></div><input class="gate-toggle" id="gateToggle" type="checkbox" aria-hidden="true"/>
+<div class="gate" id="gate">
+<div class="gate-leopard"></div><div class="gate-inner">
+<div class="gate-orbit gate-orbit-a"></div><div class="gate-orbit gate-orbit-b"></div>
+<div class="gate-photo p1"><img alt="Luce" src="assets/image3.webp"/></div>
+<div class="gate-photo p2"><img alt="Luce" src="assets/image4.webp"/></div>
+<div class="gate-photo p3"><img alt="Luce" src="assets/image5.webp"/></div>
+<div class="gate-copy">
+<p class="micro">A PRIVATE INVITATION</p>
+<div class="gate-script">Let's celebrate</div><h1>LUCE</h1>
+<p class="turning">who's turning</p><div class="gate-age">21</div>
+<div class="gate-date">17 OCTOBER 2026 · 9PM</div>
+<div id="guestForm"><label for="guestName">ENTREZ VOTRE PRÉNOM</label>
+<div class="name-row"><input autocomplete="off" id="guestName" placeholder="Votre prénom"/><label class="enter-fallback" id="enterButton" for="gateToggle">ENTRER <span>↗</span></label></div>
+<p class="gate-error" id="gateError"></p>
+</div>
+</div>
+</div>
+</div>
+<main class="invitation" id="invitation">
+<section class="cover-page">
+<div class="leopard-top"></div><div class="cover-shade"></div>
+<div class="cover-header"><span>LUCE · 21</span><span>17.10.26</span></div>
+<div class="cover-title"><div class="script">Let's celebrate</div><h2>LUCE</h2><div class="turning">who's turning</div><div class="number">21</div></div>
+<div class="photo photo-left"><img alt="Luce" src="assets/image5.webp"/></div>
+<div class="photo photo-right"><img alt="Luce" src="assets/image6.webp"/></div>
+<div class="red-pill"><strong>17 OCTOBER · 9PM</strong><span>DINNER</span></div>
+<div class="cover-bottom"><span>VILLA H MALIBE</span><span>PRIVATE EVENT</span></div>
+</section>
+<section class="details-page">
+<div aria-hidden="true" class="satin-glow"></div>
+
+<div class="details-leopard"></div>
+<div class="details-heading"><div class="script">the</div><h2>DETAILS</h2></div>
+<div class="welcome" id="details-anchor"><span>INVITATION POUR</span><strong id="guestDisplay">GUEST</strong></div>
+<div aria-label="Les détails de la soirée" class="detail-stack">
+<input class="detail-toggle detail-none" id="detail-none" name="detail-toggle" type="radio" checked="checked" aria-hidden="true"/>
+<input class="detail-toggle" id="detail-date" name="detail-toggle" type="radio" aria-hidden="true"/>
+<label class="detail-card-v9" data-open="date" for="detail-date" role="button" tabindex="0">
+<div class="detail-card-copy">
+<span class="detail-number">01</span>
+<span class="detail-kicker">DATE &amp; HEURE</span>
+<h3>17 OCTOBRE<br/><em>2026 · 21H00</em></h3>
+<span class="detail-open">VOIR LES DÉTAILS <b>↗</b></span>
+</div>
+<div class="detail-art date-art"><span>21</span><i>OCT.</i></div>
+</label>
+<input class="detail-toggle" id="detail-location" name="detail-toggle" type="radio" aria-hidden="true"/>
+<label class="detail-card-v9 location-card" data-open="location" for="detail-location" role="button" tabindex="0">
+<div class="detail-card-copy">
+<span class="detail-number">02</span>
+<span class="detail-kicker">LOCATION</span>
+<h3>VILLA H<br/><em>MALIBE</em></h3>
+<span class="detail-open">VOIR LE LIEU <b>↗</b></span>
+</div>
+<div class="detail-art location-art"><img alt="Villa H Malibe" src="assets/image7.webp"/></div>
+</label>
+<input class="detail-toggle" id="detail-dress" name="detail-toggle" type="radio" aria-hidden="true"/>
+<label class="detail-card-v9" data-open="dress" for="detail-dress" role="button" tabindex="0">
+<div class="detail-card-copy">
+<span class="detail-number">03</span>
+<span class="detail-kicker">DRESS CODE</span>
+<h3>LÉOPARD<br/><em>&amp; NOIR</em></h3>
+<span class="detail-open">VOIR LE CODE <b>↗</b></span>
+</div>
+<div class="detail-art dress-art"><div class="leopard-swatch"></div><span>WOMEN</span><b>BLACK</b></div>
+</label>
+<input class="detail-toggle" id="detail-bottle" name="detail-toggle" type="radio" aria-hidden="true"/>
+<label class="detail-card-v9" data-open="bottle" for="detail-bottle" role="button" tabindex="0">
+<div class="detail-card-copy">
+<span class="detail-number">04</span>
+<span class="detail-kicker">PETITE CONSIGNE</span>
+<h3>ONE BOTTLE<br/><em>PER GUEST</em></h3>
+<span class="detail-open">VOIR LA CONSIGNE <b>↗</b></span>
+</div>
+<div class="detail-art bottle-art"><span>01</span><b>+</b><span>01</span></div>
+</label>
+</div>
+<div aria-hidden="true" class="panel panel-v9" data-detail-id="date" hidden="True" id="panel-date"><label aria-label="Fermer" class="close" data-close="" for="detail-none" role="button">×</label><div class="panel-kicker">01 · DATE &amp; HEURE</div><h2>17 OCTOBRE<br/><em>2026</em></h2><div class="panel-rule"></div><p class="panel-lead">Rendez-vous à <b>21:00</b>. La soirée commence lorsque la nuit s’installe.</p><div class="panel-stamp">21:00</div></div>
+<div aria-hidden="true" class="panel panel-v9" data-detail-id="location" hidden="True" id="panel-location"><label aria-label="Fermer" class="close" data-close="" for="detail-none" role="button">×</label><div class="panel-kicker">02 · LIEU</div><h2>VILLA H<br/><em>MALIBE</em></h2><img alt="Villa H Malibe" class="panel-villa" src="assets/image7.webp"/><p class="panel-lead">La soirée aura lieu à <b>Villa H Malibe</b>. Prépare-toi pour une nuit élégante et festive.</p></div>
+<div aria-hidden="true" class="panel panel-v9" data-detail-id="dress" hidden="True" id="panel-dress"><label aria-label="Fermer" class="close" data-close="" for="detail-none" role="button">×</label><div class="panel-kicker">03 · DRESS CODE</div><h2>LÉOPARD<br/><em>&amp; NOIR</em></h2><div class="dress-grid"><div><span>FEMMES</span><b>LÉOPARD</b></div><div><span>HOMMES</span><b>NOIR</b></div></div><p class="panel-lead">Fais de ton look une partie de la soirée : imprimé léopard pour les femmes, noir pour les hommes.</p></div>
+<div aria-hidden="true" class="panel panel-v9" data-detail-id="bottle" hidden="True" id="panel-bottle"><label aria-label="Fermer" class="close" data-close="" for="detail-none" role="button">×</label><div class="panel-kicker">04 · PETITE CONSIGNE</div><h2>ONE BOTTLE<br/><em>PER GUEST</em></h2><div class="panel-stamp">01 + 01</div><p class="panel-lead">Chaque invité vient avec <b>une bouteille d’alcool</b> de son choix. Elle fait partie de l’ambiance de la soirée.</p></div>
+<input class="rsvp-toggle" id="rsvpNone" name="rsvp-toggle" type="radio" checked="checked" aria-hidden="true"/>
+<input class="rsvp-toggle" id="rsvpYes" name="rsvp-toggle" type="radio" aria-hidden="true"/>
+<input class="rsvp-toggle" id="rsvpNo" name="rsvp-toggle" type="radio" aria-hidden="true"/>
+<div class="rsvp-card"><div><small>RSVP</small><h3>Tu seras là ?</h3></div><div class="rsvp-actions"><label data-rsvp="confirmed" for="rsvpYes">JE SERAI LÀ ♥</label><label data-rsvp="declined" for="rsvpNo">JE NE POURRAI PAS</label></div><p id="rsvpMessage"><span class="fallback-msg fallback-yes">PRÉSENCE CONFIRMÉE · À TRÈS VITE</span><span class="fallback-msg fallback-no">RÉPONSE ENREGISTRÉE · À UNE PROCHAINE FOIS</span></p></div>
+<div class="mini-gallery"><img alt="Luce" src="assets/image3.webp"/><img alt="Luce" src="assets/image4.webp"/></div>
+<footer>LUCE'S 21ST · VILLA H MALIBE · 17.10.2026</footer>
+</section></main>
+
+<script>(()=>{
+const guests=["Karel","Claudia","Doriane","Renee","Paule","Lynmc","Ricia","Adjara","Charles","Willem","Scott","Marie Hélène","Wally Gaïa","Aelle","Stéphane","Fatima","Carl Cédric","Yann","Sydney","Dominique","Poutine","Eva","Clara","Lunant","Fils","Carla","Eunice","Irene","Latifa","Cherila","Marwan","Sarah","Richelle","Jérémie","Beaubeau","Philippe","Gauthier","Wally","Helena","Luc Alexandre","Hélia","David","Melvyn","Olivier","Braxel","Rokaya","Marc Anthony","Nathan","Barrack"];
+const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase().replace(/\s+/g,' ');
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+function enter(){const input=$('#guestName'),gate=$('#gate'),inv=$('#invitation'),error=$('#gateError'); if(!input)return; const typed=norm(input.value); const found=guests.find(x=>norm(x)===typed||norm(x).split(' ')[0]===typed); if(!found){error.textContent='Ce prénom ne figure pas sur la liste des invités.'; const gt=$('#gateToggle'); if(gt)gt.checked=false; input.focus(); return;} error.textContent=''; const display=$('#guestDisplay'); if(display)display.textContent=found.toUpperCase(); gate.style.display='none'; gate.style.pointerEvents='none'; inv.style.display='block'; inv.classList.add('show'); window.scrollTo(0,0); }
+function closePanel(){const none=$('#detail-none'); if(none)none.checked=true; const p=$('.panel.open'); if(p){p.classList.remove('open');p.hidden=true;p.setAttribute('aria-hidden','true');} $$('[data-open]').forEach(c=>c.classList.remove('active')); document.body.classList.remove('modal-open');}
+function openPanel(id,card){closePanel(); const p=$('#panel-'+id); if(!p)return; p.hidden=false; p.setAttribute('aria-hidden','false'); p.classList.add('open'); if(card)card.classList.add('active'); document.body.classList.add('modal-open');}
+function confetti(){const layer=document.createElement('div');layer.className='confetti-layer';for(let i=0;i<48;i++){const c=document.createElement('i');c.style.left=(Math.random()*100)+'%';c.style.animationDelay=(Math.random()*.55)+'s';c.style.setProperty('--x',(Math.random()*120-60)+'px');c.style.setProperty('--r',(Math.random()*720-360)+'deg');c.style.background=['#8b0015','#bd2635','#efe3d8','#c9a45c','#ffffff'][i%5];layer.appendChild(c)}document.body.appendChild(layer);setTimeout(()=>layer.remove(),3600);}
+function farewell(){const o=document.createElement('div');o.className='farewell';o.innerHTML='<div><span>17.10.2026</span><strong>On se retrouve à cette date.</strong><small>Merci de nous avoir prévenus.</small><button type="button">FERMER</button></div>';document.body.appendChild(o);o.querySelector('button').onclick=()=>o.remove();}
+function rsvp(value,btn){$$('[data-rsvp]').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');const m=$('#rsvpMessage');if(value==='confirmed'){m.textContent='PRÉSENCE CONFIRMÉE · À TRÈS VITE';m.classList.add('show');confetti();}else{m.textContent='RÉPONSE ENREGISTRÉE';m.classList.add('show');farewell();}}
+document.addEventListener('DOMContentLoaded',()=>{
+ $('#enterButton')?.addEventListener('click',e=>{e.preventDefault();enter();}); $('#guestName')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();enter();}});
+ $$('.detail-card-v9').forEach(c=>{c.addEventListener('click',e=>{e.preventDefault();openPanel(c.dataset.open,c);});c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openPanel(c.dataset.open,c);}})});
+ $$('[data-close]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();closePanel();}));
+ $$('[data-rsvp]').forEach(b=>b.addEventListener('click',()=>rsvp(b.dataset.rsvp,b)));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePanel();});
+});
+})();</script></body></html>
