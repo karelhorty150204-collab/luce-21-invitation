@@ -3,7 +3,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
-<meta content="#080706" name="theme-color"/><title>Luce — 21</title><style>@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=DM+Sans:wght@400;500;600;700&family=Italianno&display=swap');
+<meta content="#080706" name="theme-color"/><title>Luce — 21</title><script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script><style>@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,700&family=DM+Sans:wght@400;500;600;700&family=Italianno&display=swap');
 :root{--black:#070605;--red:#951522;--red2:#bd2635;--cream:#eee3d9}
 *{box-sizing:border-box}html,body{margin:0;background:#000;color:#fff}body{font-family:"DM Sans",Arial,sans-serif}.grain{position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .invitation{display:none}.invitation.show{display:block}.gate{min-height:100svh;background:#050505;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.gate-leopard{position:absolute;inset:0 0 auto 0;height:46%;background:url("image1.jpg") center/cover no-repeat;opacity:.9}.gate:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#05050500 0%,#05050508 25%,#050505 67%,#050505 100%);z-index:1}.gate:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#050505 0%,#05050500 48%,#050505 100%);z-index:1}.gate-inner{position:relative;z-index:3;width:min(92%,540px);height:100svh;min-height:700px;padding:58px 22px 30px;display:flex;flex-direction:column;align-items:center;text-align:center}.micro{font-size:7px;letter-spacing:4px;color:#e2d7d0;margin:0 0 24px}.gate-script{font-family:Italianno,cursive;font-size:42px;color:#f4e7df;line-height:.9;transform:rotate(-4deg)}.gate h1{font:600 clamp(72px,19vw,118px)/.72 "Bodoni Moda",serif;color:#bd2635;margin:6px 0 0;text-shadow:3px 4px #25050a;letter-spacing:-4px}.gate .turning{font-family:Italianno,cursive;font-size:31px;color:#f1e3db;margin-top:10px}.gate-age{font:600 clamp(135px,40vw,225px)/.72 "Bodoni Moda",serif;color:#eee3d9;letter-spacing:-16px;text-shadow:0 12px 35px #000;margin:5px 0 0}.gate-date{font-size:8px;letter-spacing:4px;margin:10px 0 0;color:#eee2da}.gate form{position:absolute;z-index:5;bottom:30px;left:50%;transform:translateX(-50%);width:min(88%,390px);padding:18px 20px 17px;background:#090707e8;border:1px solid #bca69d;border-radius:8px;box-shadow:0 18px 55px #000}.gate form label{display:block;font:600 11px "Bodoni Moda";letter-spacing:2px;color:#f1e4dc;margin-bottom:11px}.name-row{display:flex;gap:6px;border-bottom:1px solid #8d7770;padding-bottom:5px}.name-row input{flex:1;min-width:0;height:40px;background:transparent;border:0;color:#fff;padding:0 2px;font:400 15px "Bodoni Moda";outline:none;text-align:center}.name-row input::placeholder{color:#887b76}.name-row button{height:38px;border:0;border-radius:3px;background:#9b1725;color:#fff;font-size:8px;font-weight:700;letter-spacing:2px;padding:0 15px}.gate-error{min-height:12px;font-size:8px;color:#eaaeb4;margin:7px 0 0}.gate-inner:after{content:"LUCE'S 21ST · PRIVATE INVITATION";position:absolute;bottom:8px;left:0;right:0;font-size:5px;letter-spacing:3px;color:#665b57}
@@ -206,6 +206,18 @@ body.modal-open:after{content:"";position:fixed;inset:0;background:rgba(0,0,0,.7
 <div class="details-leopard"></div>
 <div class="details-heading"><div class="script">the</div><h2>DETAILS</h2></div>
 <div class="welcome" id="details-anchor"><span>INVITATION POUR</span><strong id="guestDisplay">GUEST</strong></div>
+<div class="guest-qr-card" id="guestQrCard" hidden>
+  <div class="guest-qr-copy">
+    <span class="guest-qr-kicker">ACCÈS À LA SOIRÉE</span>
+    <h3>Ton invitation</h3>
+    <p>Présente ce QR code à l'entrée. Il est personnel et ne peut être validé qu'une seule fois.</p>
+  </div>
+  <div class="guest-qr-box">
+    <div id="guestQr"></div>
+  </div>
+  <div class="guest-qr-status" id="guestQrStatus">GÉNÉRATION DU QR CODE…</div>
+</div>
+
 <div aria-label="Les détails de la soirée" class="detail-stack">
 <input class="detail-toggle detail-none" id="detail-none" name="detail-toggle" type="radio" checked="checked" aria-hidden="true"/>
 <input class="detail-toggle" id="detail-date" name="detail-toggle" type="radio" aria-hidden="true"/>
@@ -267,7 +279,49 @@ const RSVP_URL='https://script.google.com/macros/s/AKfycbx9xgJrsGsbYUauTvSzNY3AD
 let currentGuest='';
 const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase().replace(/\s+/g,' ');
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
-function enter(){const input=$('#guestName'),gate=$('#gate'),inv=$('#invitation'),error=$('#gateError'); if(!input)return; const typed=norm(input.value); const found=guests.find(x=>norm(x)===typed||norm(x).split(' ')[0]===typed); if(!found){error.textContent='Ce prénom ne figure pas sur la liste des invités.'; const gt=$('#gateToggle'); if(gt)gt.checked=false; input.focus(); return;} error.textContent=''; currentGuest=found; const display=$('#guestDisplay'); if(display)display.textContent=found.toUpperCase(); gate.style.display='none'; gate.style.pointerEvents='none'; inv.style.display='block'; inv.classList.add('show'); window.scrollTo(0,0); }
+function enter(){const input=$('#guestName'),gate=$('#gate'),inv=$('#invitation'),error=$('#gateError'); if(!input)return; const typed=norm(input.value); const found=guests.find(x=>norm(x)===typed||norm(x).split(' ')[0]===typed); if(!found){error.textContent='Ce prénom ne figure pas sur la liste des invités.'; const gt=$('#gateToggle'); if(gt)gt.checked=false; input.focus(); return;} error.textContent=''; currentGuest=found; const display=$('#guestDisplay'); if(display)display.textContent=found.toUpperCase(); gate.style.display='none'; gate.style.pointerEvents='none'; inv.style.display='block'; inv.classList.add('show'); loadGuestQr(); window.scrollTo(0,0); }
+
+async function loadGuestQr(){
+  const card = $('#guestQrCard');
+  const box = $('#guestQr');
+  const status = $('#guestQrStatus');
+
+  if(!card || !box || !status || !currentGuest) return;
+
+  card.hidden = false;
+  box.innerHTML = '';
+  status.textContent = 'GÉNÉRATION DU QR CODE…';
+
+  try{
+    const url = RSVP_URL + '?action=qr&name=' + encodeURIComponent(currentGuest);
+    const response = await fetch(url, {method:'GET'});
+    const data = await response.json();
+
+    if(!data.ok || !data.qrId){
+      throw new Error(data.error || 'QR ID manquant');
+    }
+
+    if(typeof QRCode === 'undefined'){
+      throw new Error('Bibliothèque QR indisponible');
+    }
+
+    new QRCode(box,{
+      text:'LUCE21:' + data.qrId,
+      width:122,
+      height:122,
+      colorDark:'#070605',
+      colorLight:'#ffffff',
+      correctLevel:QRCode.CorrectLevel.M
+    });
+
+    status.textContent = 'QR PERSONNEL · PRÉSENTE-LE À L’ENTRÉE';
+
+  }catch(err){
+    console.error(err);
+    status.textContent = 'QR INDISPONIBLE · RÉESSAIE';
+  }
+}
+
 function closePanel(){const none=$('#detail-none'); if(none)none.checked=true; const p=$('.panel.open'); if(p){p.classList.remove('open');p.hidden=true;p.setAttribute('aria-hidden','true');} $$('[data-open]').forEach(c=>c.classList.remove('active')); document.body.classList.remove('modal-open');}
 function openPanel(id,card){closePanel(); const p=$('#panel-'+id); if(!p)return; p.hidden=false; p.setAttribute('aria-hidden','false'); p.classList.add('open'); if(card)card.classList.add('active'); document.body.classList.add('modal-open');}
 function confetti(){const layer=document.createElement('div');layer.className='confetti-layer';for(let i=0;i<48;i++){const c=document.createElement('i');c.style.left=(Math.random()*100)+'%';c.style.animationDelay=(Math.random()*.55)+'s';c.style.setProperty('--x',(Math.random()*120-60)+'px');c.style.setProperty('--r',(Math.random()*720-360)+'deg');c.style.background=['#8b0015','#bd2635','#efe3d8','#c9a45c','#ffffff'][i%5];layer.appendChild(c)}document.body.appendChild(layer);setTimeout(()=>layer.remove(),3600);}
