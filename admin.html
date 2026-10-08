@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080706">
+<title>LUCE 21 — ADMINISTRATEUR</title>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=DM+Sans:wght@400;500;600&display=swap');
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:
+radial-gradient(circle at 20% 0%,rgba(139,0,21,.28),transparent 35%),
+linear-gradient(145deg,#050505,#12070a 55%,#050505);
+color:#f7eee9;font-family:"DM Sans",Arial,sans-serif;display:flex;justify-content:center;padding:22px}
+.wrap{width:min(520px,100%);padding:22px 0 35px}
+.brand{text-align:center;margin:8px 0 24px}
+.kicker{font-size:9px;letter-spacing:4px;color:#cda9a0}
+h1{font:500 42px/1 "Bodoni Moda",serif;margin:10px 0 7px}
+.sub{font-size:10px;letter-spacing:2px;color:#bda9a3}
+.card{background:rgba(14,12,12,.88);border:1px solid rgba(255,255,255,.13);border-radius:28px;padding:20px;box-shadow:0 22px 55px rgba(0,0,0,.5);backdrop-filter:blur(10px)}
+label{display:block;font-size:9px;letter-spacing:2px;color:#c9b6b0;margin-bottom:8px}
+input{width:100%;border:1px solid rgba(255,255,255,.16);background:#090808;color:#fff;border-radius:14px;padding:15px;font-size:15px;outline:none}
+input:focus{border-color:#9c1327}
+button{width:100%;border:0;border-radius:15px;padding:15px;margin-top:12px;background:#8b0015;color:#fff;font-weight:600;letter-spacing:1px;cursor:pointer}
+button.secondary{background:#211719;border:1px solid rgba(255,255,255,.1)}
+#reader{width:100%;margin-top:16px;overflow:hidden;border-radius:20px}
+#reader video{border-radius:20px}
+.status{margin-top:16px;border-radius:20px;padding:20px;text-align:center;display:none}
+.status.ok{display:block;background:rgba(21,111,62,.18);border:1px solid rgba(77,218,139,.38)}
+.status.bad{display:block;background:rgba(139,0,21,.2);border:1px solid rgba(255,89,111,.4)}
+.status.neutral{display:block;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.status .icon{font-size:32px;margin-bottom:8px}
+.status strong{display:block;font:600 25px/1.1 "Bodoni Moda",serif}
+.status span{display:block;margin-top:8px;font-size:11px;color:#d9cbc7}
+.small{margin-top:12px;text-align:center;color:#8f817d;font-size:9px;line-height:1.5}
+.hidden{display:none!important}
+.locked{text-align:center}
+.locked p{font-size:11px;line-height:1.6;color:#bcaeaa}
+.keyrow{position:relative}
+.toggle{position:absolute;right:10px;top:9px;width:auto;margin:0;background:transparent;padding:8px;color:#c9b6b0;font-size:10px}
+.reset{margin-top:14px;background:transparent;color:#9e8c88;font-size:9px;padding:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="kicker">LUCE · 21</div>
+    <h1>Contrôle d'entrée</h1>
+    <div class="sub">ESPACE ORGANISATEUR</div>
+  </div>
+
+  <section class="card locked" id="login">
+    <label for="key">CODE ORGANISATEUR</label>
+    <div class="keyrow">
+      <input id="key" type="password" autocomplete="off" placeholder="Entrer le code">
+      <button class="toggle" type="button" id="toggleKey">Afficher</button>
+    </div>
+    <button id="start">OUVRIR LE SCANNER</button>
+    <div class="small">Le code n'est pas affiché dans cette page et n'est pas enregistré dans le fichier.</div>
+  </section>
+
+  <section class="card hidden" id="scannerCard">
+    <div id="reader"></div>
+    <button class="secondary" id="stop">ARRÊTER LE SCANNER</button>
+    <div id="status" class="status neutral">
+      <div class="icon">📷</div>
+      <strong>PRÊT À SCANNER</strong>
+      <span>Présentez le QR de l'invité devant la caméra.</span>
+    </div>
+    <button class="reset" id="reset">Changer de code organisateur</button>
+  </section>
+
+  <div class="small">Chaque QR ne peut être validé qu'une seule fois.</div>
+</div>
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbzrGkaL-5YZ4YSNC0uDDYPkNB2m-UQcyNvxQPvVoVL22d8aW9u8d2USdAO1hCB-KUgGsg/exec";
+
+let organizerKey = "";
+let scanner = null;
+let busy = false;
+
+const $ = id => document.getElementById(id);
+
+$("toggleKey").onclick = () => {
+  const input = $("key");
+  const isPassword = input.type === "password";
+  input.type = isPassword ? "text" : "password";
+  $("toggleKey").textContent = isPassword ? "Masquer" : "Afficher";
+};
+
+function showStatus(type, icon, title, text){
+  const el = $("status");
+  el.className = "status " + type;
+  el.innerHTML = `<div class="icon">${icon}</div><strong>${title}</strong><span>${text}</span>`;
+}
+
+async function validateQr(decodedText){
+  if(busy) return;
+  busy = true;
+
+  let qrId = decodedText.trim();
+  if(qrId.startsWith("LUCE21:")) qrId = qrId.slice(7);
+
+  if(!qrId){
+    showStatus("bad","✕","QR INVALIDE","Aucun identifiant exploitable.");
+    busy = false;
+    return;
+  }
+
+  showStatus("neutral","⏳","VÉRIFICATION…","Connexion au registre des invités.");
+
+  try{
+    // GET is used deliberately so the scanner works without a JSON CORS preflight.
+    const url = API
+      + "?action=checkin"
+      + "&qrId=" + encodeURIComponent(qrId)
+      + "&organizerKey=" + encodeURIComponent(organizerKey);
+
+    const res = await fetch(url, {method:"GET", cache:"no-store"});
+    const data = await res.json();
+
+    if(data.ok){
+      showStatus("ok","✓","INVITATION VALIDÉE",`${data.guest} — entrée autorisée.`);
+      if(scanner) await scanner.pause(true);
+    }else if(data.error === "ALREADY_USED"){
+      showStatus("bad","✕","INVITATION DÉJÀ UTILISÉE",`${data.guest} — entrée refusée.`);
+      if(scanner) await scanner.pause(true);
+    }else if(data.error === "UNAUTHORIZED"){
+      showStatus("bad","🔒","ACCÈS REFUSÉ","Le code organisateur est incorrect.");
+      organizerKey = "";
+      $("scannerCard").classList.add("hidden");
+      $("login").classList.remove("hidden");
+      if(scanner){ await scanner.stop(); scanner.clear(); scanner=null; }
+    }else{
+      showStatus("bad","✕","QR INCONNU","Cette invitation ne correspond à aucun invité.");
+      if(scanner) await scanner.pause(true);
+    }
+  }catch(err){
+    console.error(err);
+    showStatus("bad","⚠","ERREUR DE CONNEXION","Impossible de joindre le registre. Vérifiez Internet.");
+  }
+
+  setTimeout(async()=>{
+    busy = false;
+    try{ if(scanner) await scanner.resume(); }catch(e){}
+    showStatus("neutral","📷","PRÊT À SCANNER","Présentez le QR de l'invité devant la caméra.");
+  }, 3000);
+}
+
+async function startScanner(){
+  organizerKey = $("key").value.trim();
+  if(!organizerKey){
+    $("key").focus();
+    showStatus("bad","🔒","CODE REQUIS","Entrez le code organisateur.");
+    return;
+  }
+
+  $("login").classList.add("hidden");
+  $("scannerCard").classList.remove("hidden");
+  showStatus("neutral","📷","OUVERTURE DE LA CAMÉRA…","Autorisez l'accès à la caméra.");
+
+  scanner = new Html5Qrcode("reader");
+
+  try{
+    await scanner.start(
+      {facingMode:"environment"},
+      {fps:10, qrbox:{width:250,height:250}},
+      validateQr,
+      () => {}
+    );
+    showStatus("neutral","📷","PRÊT À SCANNER","Présentez le QR de l'invité devant la caméra.");
+  }catch(err){
+    console.error(err);
+    showStatus("bad","⚠","CAMÉRA INDISPONIBLE","Autorisez la caméra et vérifiez que la page est ouverte en HTTPS.");
+  }
+}
+
+$("start").onclick = startScanner;
+
+$("stop").onclick = async()=>{
+  if(scanner){
+    try{ await scanner.stop(); scanner.clear(); }catch(e){}
+    scanner=null;
+  }
+  $("scannerCard").classList.add("hidden");
+  $("login").classList.remove("hidden");
+};
+
+$("reset").onclick = async()=>{
+  if(scanner){
+    try{ await scanner.stop(); scanner.clear(); }catch(e){}
+    scanner=null;
+  }
+  organizerKey="";
+  $("key").value="";
+  $("scannerCard").classList.add("hidden");
+  $("login").classList.remove("hidden");
+  $("key").focus();
+};
+</script>
+</body>
+</html>
