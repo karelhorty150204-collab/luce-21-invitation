@@ -76,7 +76,7 @@ button.secondary{background:#211719;border:1px solid rgba(255,255,255,.1)}
     <div id="status" class="status neutral">
       <div class="icon">📷</div>
       <strong>PRÊT À SCANNER</strong>
-      <span>Présentez le QR de l'invité devant la caméra.</span>
+      <span>Placez le QR entier dans le cadre, bien éclairé, à 15–25 cm.</span>
     </div>
     <button class="reset" id="reset">Changer de code organisateur</button>
   </section>
@@ -184,7 +184,7 @@ async function validateQr(decodedText){
     if(!document.getElementById("resultOverlay").classList.contains("show")){
       busy = false;
       try{ if(scanner) await scanner.resume(); }catch(e){}
-      showStatus("neutral","📷","PRÊT À SCANNER","Présentez le QR de l'invité devant la caméra.");
+      showStatus("neutral","📷","PRÊT À SCANNER","Placez le QR entier dans le cadre, bien éclairé, à 15–25 cm.");
     }
   }, 3000);
 }
@@ -205,12 +205,22 @@ async function startScanner(){
 
   try{
     await scanner.start(
-      {facingMode:"environment"},
-      {fps:10, qrbox:{width:250,height:250}},
+      { facingMode: "environment" },
+      {
+        fps: 15,
+        // Adapt the scan window to the actual camera preview size on iPhone.
+        qrbox: (viewfinderWidth, viewfinderHeight) => {
+          const edge = Math.floor(Math.min(viewfinderWidth, viewfinderHeight) * 0.78);
+          return { width: edge, height: edge };
+        },
+        aspectRatio: 1.0,
+        disableFlip: false,
+        formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
+      },
       validateQr,
       () => {}
     );
-    showStatus("neutral","📷","PRÊT À SCANNER","Présentez le QR de l'invité devant la caméra.");
+    showStatus("neutral","📷","PRÊT À SCANNER","Placez le QR entier dans le cadre, bien éclairé, à 15–25 cm.");
   }catch(err){
     console.error(err);
     showStatus("bad","⚠","CAMÉRA INDISPONIBLE","Autorisez la caméra et vérifiez que la page est ouverte en HTTPS.");
@@ -222,7 +232,7 @@ $("resultClose").onclick = async()=>{
   $("resultOverlay").classList.remove("show");
   busy = false;
   try{ if(scanner) await scanner.resume(); }catch(e){}
-  showStatus("neutral","📷","PRÊT À SCANNER","Présentez le QR de l'invité devant la caméra.");
+  showStatus("neutral","📷","PRÊT À SCANNER","Placez le QR entier dans le cadre, bien éclairé, à 15–25 cm.");
 };
 
 $("start").onclick = startScanner;
