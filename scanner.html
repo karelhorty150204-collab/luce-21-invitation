@@ -75,7 +75,7 @@ button.secondary{background:#211719;border:1px solid rgba(255,255,255,.1)}
 </div>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbzrGkaL-5YZ4YSNC0uDDYPkNB2m-UQcyNvxQPvVoVL22d8aW9u8d2USdAO1hCB-KUgGsg/exec";
+const API = "https://script.google.com/macros/s/AKfycbx9xgJrsGsbYUauTvSzNY3ADDN_bKA-0TOk13f3N-_dTTGGzS-23FsdHLxKXLXHWxk/exec";
 
 let organizerKey = "";
 let scanner = null;
@@ -161,12 +161,25 @@ async function startScanner(){
   $("scannerCard").classList.remove("hidden");
   showStatus("neutral","📷","OUVERTURE DE LA CAMÉRA…","Autorisez l'accès à la caméra.");
 
-  scanner = new Html5Qrcode("reader");
+  scanner = new Html5Qrcode("reader", {
+    verbose: false,
+    formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
+  });
 
   try{
+    const config = {
+      fps: 15,
+      qrbox: (viewfinderWidth, viewfinderHeight) => {
+        const size = Math.floor(Math.min(viewfinderWidth, viewfinderHeight) * 0.78);
+        return { width: size, height: size };
+      },
+      aspectRatio: 1.0,
+      disableFlip: false
+    };
+
     await scanner.start(
-      {facingMode:"environment"},
-      {fps:10, qrbox:{width:250,height:250}},
+      { facingMode: { exact: "environment" } },
+      config,
       validateQr,
       () => {}
     );
