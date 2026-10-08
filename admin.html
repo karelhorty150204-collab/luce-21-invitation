@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080706">
-<title>LUCE 21 — ADMINISTRATEUR</title>
+<title>LUCE 21 — Contrôle d'entrée</title>
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=DM+Sans:wght@400;500;600&display=swap');
@@ -40,6 +40,16 @@ button.secondary{background:#211719;border:1px solid rgba(255,255,255,.1)}
 .keyrow{position:relative}
 .toggle{position:absolute;right:10px;top:9px;width:auto;margin:0;background:transparent;padding:8px;color:#c9b6b0;font-size:10px}
 .reset{margin-top:14px;background:transparent;color:#9e8c88;font-size:9px;padding:8px}
+
+.resultOverlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(3,3,3,.86);backdrop-filter:blur(14px)}
+.resultOverlay.show{display:flex}
+.resultBox{width:min(430px,100%);border-radius:30px;padding:34px 24px;text-align:center;background:#0d0c0c;border:2px solid rgba(77,218,139,.7);box-shadow:0 25px 80px rgba(0,0,0,.7)}
+.resultBox.bad{border-color:rgba(255,89,111,.75)}
+.resultIcon{font-size:64px;line-height:1;margin-bottom:15px}
+.resultTitle{font:600 30px/1.1 "Bodoni Moda",serif}
+.resultGuest{margin-top:12px;font-size:21px;font-weight:600}
+.resultText{margin-top:8px;color:#d9cbc7;font-size:13px}
+.resultClose{margin-top:24px;background:#8b0015}
 </style>
 </head>
 <body>
@@ -74,6 +84,16 @@ button.secondary{background:#211719;border:1px solid rgba(255,255,255,.1)}
   <div class="small">Chaque QR ne peut être validé qu'une seule fois.</div>
 </div>
 
+<div id="resultOverlay" class="resultOverlay">
+  <div id="resultBox" class="resultBox">
+    <div id="resultIcon" class="resultIcon">✓</div>
+    <div id="resultTitle" class="resultTitle">INVITATION VALIDÉE</div>
+    <div id="resultGuest" class="resultGuest"></div>
+    <div id="resultText" class="resultText">Entrée autorisée.</div>
+    <button id="resultClose" class="resultClose">CONTINUER LE SCAN</button>
+  </div>
+</div>
+
 <script>
 const API = "https://script.google.com/macros/s/AKfycbzrGkaL-5YZ4YSNC0uDDYPkNB2m-UQcyNvxQPvVoVL22d8aW9u8d2USdAO1hCB-KUgGsg/exec";
 
@@ -94,6 +114,18 @@ function showStatus(type, icon, title, text){
   const el = $("status");
   el.className = "status " + type;
   el.innerHTML = `<div class="icon">${icon}</div><strong>${title}</strong><span>${text}</span>`;
+}
+
+function showResult(ok, guest, message){
+  const overlay = $("resultOverlay");
+  const box = $("resultBox");
+  $("resultIcon").textContent = ok ? "✓" : "✕";
+  $("resultTitle").textContent = ok ? "INVITATION VALIDÉE" : "INVITATION DÉJÀ UTILISÉE";
+  $("resultGuest").textContent = guest || "";
+  $("resultText").textContent = message || (ok ? "Entrée autorisée." : "Entrée refusée.");
+  box.classList.toggle("bad", !ok);
+  overlay.classList.add("show");
+  if(navigator.vibrate) navigator.vibrate(ok ? [120,70,180] : [300,100,300]);
 }
 
 async function validateQr(decodedText){
@@ -123,10 +155,16 @@ async function validateQr(decodedText){
 
     if(data.ok){
       showStatus("ok","✓","INVITATION VALIDÉE",`${data.guest} — entrée autorisée.`);
+      showResult(true, data.guest, "Entrée autorisée.");
       if(scanner) await scanner.pause(true);
+      busy = true;
+      return;
     }else if(data.error === "ALREADY_USED"){
       showStatus("bad","✕","INVITATION DÉJÀ UTILISÉE",`${data.guest} — entrée refusée.`);
+      showResult(false, data.guest, "Cette invitation a déjà été utilisée.");
       if(scanner) await scanner.pause(true);
+      busy = true;
+      return;
     }else if(data.error === "UNAUTHORIZED"){
       showStatus("bad","🔒","ACCÈS REFUSÉ","Le code organisateur est incorrect.");
       organizerKey = "";
@@ -143,9 +181,11 @@ async function validateQr(decodedText){
   }
 
   setTimeout(async()=>{
-    busy = false;
-    try{ if(scanner) await scanner.resume(); }catch(e){}
-    showStatus("neutral","📷","PRÊT À SCANNER","Présentez le QR de l'invité devant la caméra.");
+    if(!document.getElementById("resultOverlay").classList.contains("show")){
+      busy = false;
+      try{ if(scanner) await scanner.resume(); }catch(e){}
+      showStatus("neutral","📷","PRÊT À SCANNER","Présentez le QR de l'invité devant la caméra.");
+    }
   }, 3000);
 }
 
@@ -176,6 +216,14 @@ async function startScanner(){
     showStatus("bad","⚠","CAMÉRA INDISPONIBLE","Autorisez la caméra et vérifiez que la page est ouverte en HTTPS.");
   }
 }
+
+
+$("resultClose").onclick = async()=>{
+  $("resultOverlay").classList.remove("show");
+  busy = false;
+  try{ if(scanner) await scanner.resume(); }catch(e){}
+  showStatus("neutral","📷","PRÊT À SCANNER","Présentez le QR de l'invité devant la caméra.");
+};
 
 $("start").onclick = startScanner;
 
