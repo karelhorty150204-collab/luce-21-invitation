@@ -5,258 +5,97 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#080706">
 <title>LUCE 21 — Contrôle d'entrée</title>
-<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=DM+Sans:wght@400;500;600&display=swap');
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:
-radial-gradient(circle at 20% 0%,rgba(139,0,21,.28),transparent 35%),
-linear-gradient(145deg,#050505,#12070a 55%,#050505);
-color:#f7eee9;font-family:"DM Sans",Arial,sans-serif;display:flex;justify-content:center;padding:22px}
-.wrap{width:min(520px,100%);padding:22px 0 35px}
-.brand{text-align:center;margin:8px 0 24px}
-.kicker{font-size:9px;letter-spacing:4px;color:#cda9a0}
-h1{font:500 42px/1 "Bodoni Moda",serif;margin:10px 0 7px}
-.sub{font-size:10px;letter-spacing:2px;color:#bda9a3}
-.card{background:rgba(14,12,12,.88);border:1px solid rgba(255,255,255,.13);border-radius:28px;padding:20px;box-shadow:0 22px 55px rgba(0,0,0,.5);backdrop-filter:blur(10px)}
-label{display:block;font-size:9px;letter-spacing:2px;color:#c9b6b0;margin-bottom:8px}
-input{width:100%;border:1px solid rgba(255,255,255,.16);background:#090808;color:#fff;border-radius:14px;padding:15px;font-size:15px;outline:none}
-input:focus{border-color:#9c1327}
-button{width:100%;border:0;border-radius:15px;padding:15px;margin-top:12px;background:#8b0015;color:#fff;font-weight:600;letter-spacing:1px;cursor:pointer}
-button.secondary{background:#211719;border:1px solid rgba(255,255,255,.1)}
-#reader{width:100%;margin-top:16px;overflow:hidden;border-radius:20px}
-#reader video{border-radius:20px}
-.status{margin-top:16px;border-radius:20px;padding:20px;text-align:center;display:none}
-.status.ok{display:block;background:rgba(21,111,62,.18);border:1px solid rgba(77,218,139,.38)}
-.status.bad{display:block;background:rgba(139,0,21,.2);border:1px solid rgba(255,89,111,.4)}
-.status.neutral{display:block;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
-.status .icon{font-size:32px;margin-bottom:8px}
-.status strong{display:block;font:600 25px/1.1 "Bodoni Moda",serif}
-.status span{display:block;margin-top:8px;font-size:11px;color:#d9cbc7}
-.small{margin-top:12px;text-align:center;color:#8f817d;font-size:9px;line-height:1.5}
-.hidden{display:none!important}
-.locked{text-align:center}
-.locked p{font-size:11px;line-height:1.6;color:#bcaeaa}
-.keyrow{position:relative}
-.toggle{position:absolute;right:10px;top:9px;width:auto;margin:0;background:transparent;padding:8px;color:#c9b6b0;font-size:10px}
-.reset{margin-top:14px;background:transparent;color:#9e8c88;font-size:9px;padding:8px}
-
-.resultOverlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(3,3,3,.86);backdrop-filter:blur(14px)}
-.resultOverlay.show{display:flex}
-.resultBox{width:min(430px,100%);border-radius:30px;padding:34px 24px;text-align:center;background:#0d0c0c;border:2px solid rgba(77,218,139,.7);box-shadow:0 25px 80px rgba(0,0,0,.7)}
-.resultBox.bad{border-color:rgba(255,89,111,.75)}
-.resultIcon{font-size:64px;line-height:1;margin-bottom:15px}
-.resultTitle{font:600 30px/1.1 "Bodoni Moda",serif}
-.resultGuest{margin-top:12px;font-size:21px;font-weight:600}
-.resultText{margin-top:8px;color:#d9cbc7;font-size:13px}
-.resultClose{margin-top:24px;background:#8b0015}
+*{box-sizing:border-box} body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 0%,rgba(139,0,21,.28),transparent 35%),linear-gradient(145deg,#050505,#12070a 55%,#050505);color:#f7eee9;font-family:"DM Sans",Arial,sans-serif;display:flex;justify-content:center;padding:18px}
+.wrap{width:min(520px,100%);padding:14px 0 30px}.brand{text-align:center;margin:8px 0 24px}.kicker{font-size:9px;letter-spacing:4px;color:#cda9a0}h1{font:500 38px/1.08 "Bodoni Moda",serif;margin:10px 0 7px}.sub{font-size:10px;letter-spacing:2px;color:#bda9a3}.card{background:rgba(14,12,12,.92);border:1px solid rgba(255,255,255,.13);border-radius:24px;padding:18px;box-shadow:0 22px 55px rgba(0,0,0,.5)}label{display:block;font-size:10px;letter-spacing:1.5px;color:#c9b6b0;margin-bottom:8px}input[type=password],input[type=text]{width:100%;border:1px solid rgba(255,255,255,.16);background:#090808;color:#fff;border-radius:13px;padding:15px;font-size:16px;outline:none}input:focus{border-color:#9c1327}button{width:100%;border:0;border-radius:14px;padding:15px;margin-top:12px;background:#8b0015;color:#fff;font-weight:600;letter-spacing:.6px;cursor:pointer;font-size:13px}button:disabled{opacity:.55}.secondary{background:#211719;border:1px solid rgba(255,255,255,.1)}.hidden{display:none!important}.small{margin-top:12px;text-align:center;color:#9b8c88;font-size:10px;line-height:1.5}.keyrow{position:relative}.toggle{position:absolute;right:6px;top:5px;width:auto;margin:0;background:transparent;padding:10px;color:#c9b6b0;font-size:10px}.keyrow input{padding-right:90px}#reader{width:100%;margin-top:14px;overflow:hidden;border-radius:16px;background:#050505;min-height:100px}#reader video{width:100%!important;max-height:55vh;object-fit:cover;border-radius:16px}#reader__dashboard,#reader__status_span{color:#f7eee9!important}.status{margin-top:14px;border-radius:16px;padding:17px;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}.status.ok{background:rgba(21,111,62,.18);border-color:rgba(77,218,139,.45)}.status.bad{background:rgba(139,0,21,.2);border-color:rgba(255,89,111,.45)}.status .icon{font-size:28px;margin-bottom:6px}.status strong{display:block;font:600 23px/1.15 "Bodoni Moda",serif}.status span{display:block;margin-top:7px;font-size:12px;color:#d9cbc7;line-height:1.5}.resultOverlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(3,3,3,.9);backdrop-filter:blur(14px)}.resultOverlay.show{display:flex}.resultBox{width:min(430px,100%);border-radius:26px;padding:30px 22px;text-align:center;background:#0d0c0c;border:2px solid rgba(77,218,139,.7);box-shadow:0 25px 80px rgba(0,0,0,.7)}.resultBox.bad{border-color:rgba(255,89,111,.75)}.resultIcon{font-size:58px;line-height:1;margin-bottom:14px}.resultTitle{font:600 29px/1.1 "Bodoni Moda",serif}.resultGuest{margin-top:12px;font-size:20px;font-weight:600}.resultText{margin-top:8px;color:#d9cbc7;font-size:13px;line-height:1.5}.resultClose{margin-top:24px}.hint{font-size:11px;color:#c4b4af;line-height:1.5;margin:10px 2px 0}.divider{height:1px;background:rgba(255,255,255,.1);margin:16px 0}.fileLabel{display:block;text-align:center;padding:13px;border:1px solid rgba(255,255,255,.16);border-radius:14px;margin-top:10px;color:#eadbd6;font-size:12px;cursor:pointer}.fileLabel input{display:none}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="brand">
-    <div class="kicker">LUCE · 21</div>
-    <h1>Contrôle d'entrée</h1>
-    <div class="sub">ESPACE ORGANISATEUR</div>
-  </div>
-
-  <section class="card locked" id="login">
+  <header class="brand"><div class="kicker">LUCE · 21</div><h1>Contrôle d'entrée</h1><div class="sub">ESPACE ORGANISATEUR</div></header>
+  <section class="card" id="login">
     <label for="key">CODE ORGANISATEUR</label>
-    <div class="keyrow">
-      <input id="key" type="password" autocomplete="off" placeholder="Entrer le code">
-      <button class="toggle" type="button" id="toggleKey">Afficher</button>
-    </div>
+    <div class="keyrow"><input id="key" type="password" autocomplete="off" placeholder="Entrer le code"><button class="toggle" type="button" id="toggleKey">Afficher</button></div>
     <button id="start">OUVRIR LE SCANNER</button>
-    <div class="small">Le code n'est pas affiché dans cette page et n'est pas enregistré dans le fichier.</div>
+    <div class="small">Accès réservé à l'organisateur. Le code n'est pas conservé dans le fichier.</div>
   </section>
-
   <section class="card hidden" id="scannerCard">
     <div id="reader"></div>
+    <div class="hint">Place le QR entier au centre de l'image, à environ 15–25 cm. Le scanner analyse toute l'image, pas seulement un petit carré.</div>
+    <div id="status" class="status"><div class="icon">📷</div><strong>PRÊT À SCANNER</strong><span>Présentez le QR de l'invité devant la caméra.</span></div>
+    <div class="divider"></div>
+    <label class="fileLabel" for="qrFile">DÉPANNAGE : IMPORTER UNE IMAGE DU QR CODE<input id="qrFile" type="file" accept="image/*"></label>
     <button class="secondary" id="stop">ARRÊTER LE SCANNER</button>
-    <div id="status" class="status neutral">
-      <div class="icon">📷</div>
-      <strong>PRÊT À SCANNER</strong>
-      <span>Placez le QR entier dans le cadre, bien éclairé, à 15–25 cm.</span>
-    </div>
-    <button class="reset" id="reset">Changer de code organisateur</button>
+    <button class="secondary" id="reset">Changer de code organisateur</button>
   </section>
-
   <div class="small">Chaque QR ne peut être validé qu'une seule fois.</div>
 </div>
-
-<div id="resultOverlay" class="resultOverlay">
-  <div id="resultBox" class="resultBox">
-    <div id="resultIcon" class="resultIcon">✓</div>
-    <div id="resultTitle" class="resultTitle">INVITATION VALIDÉE</div>
-    <div id="resultGuest" class="resultGuest"></div>
-    <div id="resultText" class="resultText">Entrée autorisée.</div>
-    <button id="resultClose" class="resultClose">CONTINUER LE SCAN</button>
-  </div>
-</div>
-
+<div id="resultOverlay" class="resultOverlay"><div id="resultBox" class="resultBox"><div id="resultIcon" class="resultIcon">✓</div><div id="resultTitle" class="resultTitle">INVITATION VALIDÉE</div><div id="resultGuest" class="resultGuest"></div><div id="resultText" class="resultText">Entrée autorisée.</div><button id="resultClose" class="resultClose">CONTINUER LE SCAN</button></div></div>
 <script>
+'use strict';
 const API = "https://script.google.com/macros/s/AKfycbzrGkaL-5YZ4YSNC0uDDYPkNB2m-UQcyNvxQPvVoVL22d8aW9u8d2USdAO1hCB-KUgGsg/exec";
-
-let organizerKey = "";
-let scanner = null;
-let busy = false;
-
+let organizerKey = '', scanner = null, busy = false, lastDecoded = '';
 const $ = id => document.getElementById(id);
-
-$("toggleKey").onclick = () => {
-  const input = $("key");
-  const isPassword = input.type === "password";
-  input.type = isPassword ? "text" : "password";
-  $("toggleKey").textContent = isPassword ? "Masquer" : "Afficher";
-};
-
-function showStatus(type, icon, title, text){
-  const el = $("status");
-  el.className = "status " + type;
-  el.innerHTML = `<div class="icon">${icon}</div><strong>${title}</strong><span>${text}</span>`;
+function showStatus(type, icon, title, message){
+  const el=$('status'); el.className='status '+(type||'');
+  el.replaceChildren(); const i=document.createElement('div'); i.className='icon'; i.textContent=icon;
+  const s=document.createElement('strong'); s.textContent=title;
+  const p=document.createElement('span'); p.textContent=message;
+  el.append(i,s,p);
 }
-
 function showResult(ok, guest, message){
-  const overlay = $("resultOverlay");
-  const box = $("resultBox");
-  $("resultIcon").textContent = ok ? "✓" : "✕";
-  $("resultTitle").textContent = ok ? "INVITATION VALIDÉE" : "INVITATION DÉJÀ UTILISÉE";
-  $("resultGuest").textContent = guest || "";
-  $("resultText").textContent = message || (ok ? "Entrée autorisée." : "Entrée refusée.");
-  box.classList.toggle("bad", !ok);
-  overlay.classList.add("show");
-  if(navigator.vibrate) navigator.vibrate(ok ? [120,70,180] : [300,100,300]);
+  $('resultIcon').textContent=ok?'✓':'✕';
+  $('resultTitle').textContent=ok?'INVITATION VALIDÉE':(message==='QR_INCONNU'?'QR CODE INCONNU':'ENTRÉE REFUSÉE');
+  $('resultGuest').textContent=guest||'';
+  $('resultText').textContent=message==='QR_INCONNU'?'Ce QR ne correspond à aucun invité du registre.':(message||(ok?'Entrée autorisée.':'Entrée refusée.'));
+  $('resultBox').classList.toggle('bad',!ok); $('resultOverlay').classList.add('show');
+  if(navigator.vibrate) navigator.vibrate(ok?[120,70,180]:[300,100,300]);
 }
-
+function extractQrId(decodedText){
+  let value=String(decodedText||'').trim();
+  if(value.startsWith('LUCE21:')) return value.slice('LUCE21:'.length).trim();
+  // Accept a plain QR ID too, but do not silently treat an arbitrary URL as an ID.
+  if(value && !/^https?:\/\//i.test(value) && !/[\s]/.test(value)) return value;
+  return '';
+}
 async function validateQr(decodedText){
-  if(busy) return;
-  busy = true;
-
-  let qrId = decodedText.trim();
-  if(qrId.startsWith("LUCE21:")) qrId = qrId.slice(7);
-
-  if(!qrId){
-    showStatus("bad","✕","QR INVALIDE","Aucun identifiant exploitable.");
-    busy = false;
-    return;
-  }
-
-  showStatus("neutral","⏳","VÉRIFICATION…","Connexion au registre des invités.");
-
+  if(busy) return; busy=true; lastDecoded=String(decodedText||'');
+  const qrId=extractQrId(lastDecoded);
+  if(!qrId){ showStatus('bad','✕','FORMAT QR INATTENDU','Le QR est lu, mais son contenu n’est pas au format attendu.'); busy=false; return; }
+  showStatus('','⏳','QR DÉTECTÉ','Vérification du code dans le registre des invités…');
   try{
-    // GET is used deliberately so the scanner works without a JSON CORS preflight.
-    const url = API
-      + "?action=checkin"
-      + "&qrId=" + encodeURIComponent(qrId)
-      + "&organizerKey=" + encodeURIComponent(organizerKey);
-
-    const res = await fetch(url, {method:"GET", cache:"no-store"});
-    const data = await res.json();
-
-    if(data.ok){
-      showStatus("ok","✓","INVITATION VALIDÉE",`${data.guest} — entrée autorisée.`);
-      showResult(true, data.guest, "Entrée autorisée.");
-      if(scanner) await scanner.pause(true);
-      busy = true;
-      return;
-    }else if(data.error === "ALREADY_USED"){
-      showStatus("bad","✕","INVITATION DÉJÀ UTILISÉE",`${data.guest} — entrée refusée.`);
-      showResult(false, data.guest, "Cette invitation a déjà été utilisée.");
-      if(scanner) await scanner.pause(true);
-      busy = true;
-      return;
-    }else if(data.error === "UNAUTHORIZED"){
-      showStatus("bad","🔒","ACCÈS REFUSÉ","Le code organisateur est incorrect.");
-      organizerKey = "";
-      $("scannerCard").classList.add("hidden");
-      $("login").classList.remove("hidden");
-      if(scanner){ await scanner.stop(); scanner.clear(); scanner=null; }
-    }else{
-      showStatus("bad","✕","QR INCONNU","Cette invitation ne correspond à aucun invité.");
-      if(scanner) await scanner.pause(true);
-    }
-  }catch(err){
-    console.error(err);
-    showStatus("bad","⚠","ERREUR DE CONNEXION","Impossible de joindre le registre. Vérifiez Internet.");
-  }
-
-  setTimeout(async()=>{
-    if(!document.getElementById("resultOverlay").classList.contains("show")){
-      busy = false;
-      try{ if(scanner) await scanner.resume(); }catch(e){}
-      showStatus("neutral","📷","PRÊT À SCANNER","Placez le QR entier dans le cadre, bien éclairé, à 15–25 cm.");
-    }
-  }, 3000);
+    const url=API+'?action=checkin&qrId='+encodeURIComponent(qrId)+'&organizerKey='+encodeURIComponent(organizerKey)+'&_='+Date.now();
+    const res=await fetch(url,{method:'GET',cache:'no-store',redirect:'follow'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(data && data.ok){ showStatus('ok','✓','INVITATION VALIDÉE',(data.guest||'Invité')+' — entrée autorisée.'); showResult(true,data.guest,'Entrée autorisée.'); try{if(scanner) await scanner.pause(true);}catch(e){} return; }
+    if(data && (data.error==='ALREADY_USED'||data.error==='QR_ALREADY_USED')){ showStatus('bad','✕','QR DÉJÀ UTILISÉ',(data.guest||'Invité')+' — entrée refusée.'); showResult(false,data.guest,'Cette invitation a déjà été utilisée.'); try{if(scanner) await scanner.pause(true);}catch(e){} return; }
+    if(data && (data.error==='UNAUTHORIZED'||data.error==='UNAUTHORIZED_KEY')){ showStatus('bad','🔒','CODE ORGANISATEUR REFUSÉ','Vérifie le code organisateur puis recommence.'); try{if(scanner){await scanner.stop();scanner.clear();}}catch(e){} scanner=null; $('scannerCard').classList.add('hidden'); $('login').classList.remove('hidden'); organizerKey=''; return; }
+    const err=(data&&data.error)||'QR_INCONNU'; showStatus('bad','✕','QR NON VALIDÉ',err==='QR INCONNU'?'Ce QR ne correspond à aucun invité.':'Réponse du registre : '+err); showResult(false,data&&data.guest||'',err==='QR INCONNU'?'QR_INCONNU':'Entrée non autorisée.');
+    try{if(scanner) await scanner.pause(true);}catch(e){}
+  }catch(err){ console.error(err); showStatus('bad','⚠','CONNEXION IMPOSSIBLE','QR détecté, mais le registre ne répond pas. Vérifie Internet puis réessaie.'); busy=false; }
 }
-
 async function startScanner(){
-  organizerKey = $("key").value.trim();
-  if(!organizerKey){
-    $("key").focus();
-    showStatus("bad","🔒","CODE REQUIS","Entrez le code organisateur.");
-    return;
-  }
-
-  $("login").classList.add("hidden");
-  $("scannerCard").classList.remove("hidden");
-  showStatus("neutral","📷","OUVERTURE DE LA CAMÉRA…","Autorisez l'accès à la caméra.");
-
-  scanner = new Html5Qrcode("reader");
-
+  organizerKey=$('key').value.trim();
+  if(!organizerKey){$('key').focus();showStatus('bad','🔒','CODE REQUIS','Entre le code organisateur.');return;}
+  if(typeof Html5Qrcode==='undefined'){showStatus('bad','⚠','SCANNER NON CHARGÉ','La bibliothèque de lecture ne s’est pas chargée. Recharge la page avec Internet.');return;}
+  $('login').classList.add('hidden'); $('scannerCard').classList.remove('hidden');
+  showStatus('','📷','OUVERTURE DE LA CAMÉRA','Autorise Safari à accéder à la caméra.');
   try{
-    await scanner.start(
-      { facingMode: "environment" },
-      {
-        fps: 15,
-        // Adapt the scan window to the actual camera preview size on iPhone.
-        qrbox: (viewfinderWidth, viewfinderHeight) => {
-          const edge = Math.floor(Math.min(viewfinderWidth, viewfinderHeight) * 0.78);
-          return { width: edge, height: edge };
-        },
-        aspectRatio: 1.0,
-        disableFlip: false,
-        formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE]
-      },
-      validateQr,
-      () => {}
-    );
-    showStatus("neutral","📷","PRÊT À SCANNER","Placez le QR entier dans le cadre, bien éclairé, à 15–25 cm.");
-  }catch(err){
-    console.error(err);
-    showStatus("bad","⚠","CAMÉRA INDISPONIBLE","Autorisez la caméra et vérifiez que la page est ouverte en HTTPS.");
-  }
+    scanner=new Html5Qrcode('reader',{formatsToSupport:[Html5QrcodeSupportedFormats.QR_CODE],verbose:false});
+    await scanner.start({facingMode:'environment'},{fps:18,disableFlip:false,aspectRatio:1.0},validateQr,()=>{});
+    showStatus('','📷','PRÊT À SCANNER','La caméra analyse toute l’image. Aligne le QR entier et garde le téléphone stable.');
+  }catch(err){console.error(err);showStatus('bad','⚠','CAMÉRA INDISPONIBLE','Vérifie l’autorisation caméra et ouvre le site dans Safari en HTTPS.');}
 }
-
-
-$("resultClose").onclick = async()=>{
-  $("resultOverlay").classList.remove("show");
-  busy = false;
-  try{ if(scanner) await scanner.resume(); }catch(e){}
-  showStatus("neutral","📷","PRÊT À SCANNER","Placez le QR entier dans le cadre, bien éclairé, à 15–25 cm.");
-};
-
-$("start").onclick = startScanner;
-
-$("stop").onclick = async()=>{
-  if(scanner){
-    try{ await scanner.stop(); scanner.clear(); }catch(e){}
-    scanner=null;
-  }
-  $("scannerCard").classList.add("hidden");
-  $("login").classList.remove("hidden");
-};
-
-$("reset").onclick = async()=>{
-  if(scanner){
-    try{ await scanner.stop(); scanner.clear(); }catch(e){}
-    scanner=null;
-  }
-  organizerKey="";
-  $("key").value="";
-  $("scannerCard").classList.add("hidden");
-  $("login").classList.remove("hidden");
-  $("key").focus();
-};
+$('toggleKey').onclick=()=>{const i=$('key');const show=i.type==='password';i.type=show?'text':'password';$('toggleKey').textContent=show?'Masquer':'Afficher';};
+$('start').onclick=startScanner;
+$('resultClose').onclick=async()=>{$('resultOverlay').classList.remove('show');busy=false;try{if(scanner)await scanner.resume();}catch(e){}showStatus('','📷','PRÊT À SCANNER','Présentez le QR de l’invité devant la caméra.');};
+$('stop').onclick=async()=>{if(scanner){try{await scanner.stop();scanner.clear();}catch(e){}scanner=null;}busy=false;$('scannerCard').classList.add('hidden');$('login').classList.remove('hidden');};
+$('reset').onclick=async()=>{if(scanner){try{await scanner.stop();scanner.clear();}catch(e){}scanner=null;}organizerKey='';$('key').value='';busy=false;$('scannerCard').classList.add('hidden');$('login').classList.remove('hidden');$('key').focus();};
+$('qrFile').addEventListener('change',async e=>{const file=e.target.files&&e.target.files[0];if(!file)return;if(!scanner){showStatus('bad','⚠','SCANNER NON PRÊT','Ouvre d’abord le scanner et saisis le code organisateur.');e.target.value='';return;}try{try{await scanner.stop();}catch(err){}const decoded=await scanner.scanFile(file,true);await validateQr(decoded);}catch(err){console.error(err);showStatus('bad','✕','QR NON LU','Essaie une image nette, non floue, où le QR entier est visible.');}finally{e.target.value='';}});
+$('key').addEventListener('keydown',e=>{if(e.key==='Enter')startScanner();});
 </script>
 </body>
 </html>
